@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Street Vendor Survey / தெருவோர வியாபாரிகள் கணக்கெடுப்பு</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="topbar">
+  <h1>தெருவோர வியாபாரிகள் கணக்கெடுப்பு / Street Vendor Survey</h1>
+  <div id="netStatus" class="status">checking...</div>
+  <a href="/records" class="link-btn">Records</a>
+</div>
+
+<form id="surveyForm" method="POST" action="/submit" enctype="multipart/form-data">
+
+  <fieldset>
+    <legend>Location / இடம்</legend>
+    <label>Survey No. / கணக்கெடுப்பு எண்: <input type="text" name="survey_no"></label>
+    <label>Ward No. / வார்டு எண்: <input type="text" name="ward_no"></label>
+    <label>Zone No. / மண்டலம் எண்: <input type="text" name="zone_no"></label>
+    <label>Latitude: <input type="text" name="latitude" id="latitude" readonly></label>
+    <label>Longitude: <input type="text" name="longitude" id="longitude" readonly></label>
+    <button type="button" id="getLocationBtn">📍 Capture GPS Location</button>
+    <span id="locStatus"></span>
+  </fieldset>
+
+  <fieldset>
+    <legend>Vendor Details / வியாபாரியின் விவரம்</legend>
+    <label>Trader Name / வியாபாரியின் பெயர்: <input type="text" name="trader_name" required></label>
+    <label>Father/Husband Name / தாய்/தந்தை பெயர்: <input type="text" name="father_husband_name"></label>
+    <label>Age / வயது: <input type="number" name="age"></label>
+    <label>Caste / சாதி:
+      <select name="caste">
+        <option>SC</option><option>ST</option><option>MBC</option><option>BC</option><option>Others</option>
+      </select>
+    </label>
+    <label>Mobile No / கைபேசி எண்: <input type="tel" name="mobile_no"></label>
+    <label>Marital Status / திருமண நிலை:
+      <select name="marital_status">
+        <option value="Married">Married / மணமானவர்</option>
+        <option value="Unmarried">Unmarried / மணமாகாதவர்</option>
+        <option value="Widow">Widow/Widower / விதவை</option>
+      </select>
+    </label>
+    <label>Differently Abled? / மாற்றுத்திறனாளி?
+      <select name="differently_abled"><option value="No">No / இல்லை</option><option value="Yes">Yes / ஆம்</option></select>
+    </label>
+    <label>Permanent Address / நிரந்தர முகவரி: <textarea name="permanent_address"></textarea></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Housing / குடியிருப்பு</legend>
+    <label>House Type / குடியிருக்கும் வீட்டின் வகை:
+      <select name="house_type">
+        <option>Pucca House</option><option>Hut</option><option>Rented House</option><option>Slum</option>
+      </select>
+    </label>
+    <label>House Ownership / வீடு:
+      <select name="house_ownership"><option value="Own">Own / சொந்த வீடு</option><option value="Rented">Rented / வாடகை வீடு</option></select>
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Family Members / குடும்ப உறுப்பினர்கள்</legend>
+    <div id="familyRows">
+      <div class="family-row">
+        <input type="text" name="family_name[]" placeholder="Name / பெயர்">
+        <input type="text" name="family_relation[]" placeholder="Relation / உறவு முறை">
+      </div>
+    </div>
+    <button type="button" id="addFamilyRow">+ Add Member</button>
+  </fieldset>
+
+  <fieldset>
+    <legend>Business Details / வியாபார விவரம்</legend>
+    <label>Goods Sold / விற்பனை செய்யும் பொருள்: <input type="text" name="goods_sold"></label>
+    <label>Business Type / வியாபார தன்மை:
+      <select name="business_type"><option value="Permanent Shop">Permanent Shop / நிலையான கடை</option><option value="Pushcart">Pushcart / தள்ளுவண்டி</option></select>
+    </label>
+    <label>Business Hours / நேரம்:
+      <select name="business_hours"><option>Morning</option><option>Evening</option><option>Night</option><option>24 Hours</option></select>
+    </label>
+    <label>Permanent Address of Business / நிலையான முகவரி: <input type="text" name="permanent_address_business"></label>
+    <label>Member of any Association? / சங்க உறுப்பினர்?
+      <select name="association_member"><option value="No">No</option><option value="Yes">Yes</option></select>
+    </label>
+    <label>Food Safety License? / உணவு பாதுகாப்பு உரிமம்?
+      <select name="food_license"><option value="No">No</option><option value="Yes">Yes</option></select>
+    </label>
+    <label>PM SVANidhi Loan recipient? / PMSVANidhi கடன் பெற்றுள்ளீர்களா?
+      <select name="pmsvanidhi_loan"><option value="No">No</option><option value="Yes">Yes</option></select>
+    </label>
+    <label>UPI used for business? / UPI மூலம் வியாபாரம்?
+      <select name="upi_usage"><option value="No">No</option><option value="Yes">Yes</option></select>
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>ID & Bank Details / அடையாள மற்றும் வங்கி விவரம்</legend>
+    <label>Voter ID No / வாக்காளர் அடையாள எண்: <input type="text" name="voter_id_no"></label>
+    <label>Ration Card No / குடும்ப அட்டை எண்: <input type="text" name="ration_card_no"></label>
+    <label>Aadhar No / ஆதார் எண்: <input type="text" name="aadhar_no"></label>
+    <label>Bank Account No: <input type="text" name="bank_account_no"></label>
+    <label>IFSC Code: <input type="text" name="ifsc_code"></label>
+    <label>Bank Name / Branch: <input type="text" name="bank_name_branch"></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Photo Capture / புகைப்படம்</legend>
+    <label>Vendor Photo / வியாபாரி புகைப்படம்:
+      <input type="file" name="vendor_photo" accept="image/*" capture="environment" required>
+    </label>
+    <label>Vending Spot Photo / வியாபார இடம் புகைப்படம்:
+      <input type="file" name="vending_photo" accept="image/*" capture="environment">
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Documents / ஆவணங்கள்</legend>
+    <label>Aadhar Card: <input type="file" name="aadhar_doc" accept="image/*,application/pdf" capture="environment"></label>
+    <label>Voter ID Card: <input type="file" name="voter_id_doc" accept="image/*,application/pdf" capture="environment"></label>
+    <label>Bank Passbook: <input type="file" name="bank_passbook_doc" accept="image/*,application/pdf" capture="environment"></label>
+    <label>PDS / Ration Card: <input type="file" name="pds_card_doc" accept="image/*,application/pdf" capture="environment"></label>
+  </fieldset>
+
+  <button type="submit" class="submit-btn">💾 Save Record (Saved to device immediately)</button>
+</form>
+
+<script src="{{ url_for('static', filename='js/offline.js') }}"></script>
+</body>
+</html>

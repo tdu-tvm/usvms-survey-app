@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Records</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body>
+<div class="topbar">
+  <h1>Survey Records</h1>
+  <div id="netStatus" class="status">checking...</div>
+  <a href="/" class="link-btn">+ New</a>
+  <button id="syncBtn" class="link-btn">🔄 Sync Now</button>
+</div>
+<table class="records-table">
+<tr><th>ID</th><th>Trader Name</th><th>Mobile</th><th>Created</th><th>Synced</th></tr>
+{% for r in rows %}
+<tr>
+  <td>{{ r['id'] }}</td>
+  <td>{{ r['trader_name'] }}</td>
+  <td>{{ r['mobile_no'] }}</td>
+  <td>{{ r['created_at'] }}</td>
+  <td>{{ '✅' if r['synced'] else '⏳ pending' }}</td>
+</tr>
+{% endfor %}
+</table>
+<script src="{{ url_for('static', filename='js/offline.js') }}"></script>
+<script>
+document.getElementById('syncBtn').addEventListener('click', async () => {
+  const res = await fetch('/api/sync_now', {method: 'POST'});
+  const data = await res.json();
+  alert(data.online ? `Synced ${data.synced} record(s)` : 'Still offline - will retry automatically');
+  location.reload();
+});
+</script>
+</body></html>

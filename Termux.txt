@@ -1,0 +1,15 @@
+On your Android phone: install the Termux app from F-Droid, open it (it's its own terminal app, separate from your PC), and run the pkg update, pkg install python git, etc. commands there, one at a time:
+bash
+pkg update
+pkg upgrade
+pkg install python git
+termux-setup-storage
+
+(run each line separately, don't chain with && even in Termux, just to keep it simple)
+Then to get the survey_app folder onto the phone, easiest option: push it to a GitHub repo from your PC (you already have github.com/tdu-tvm), then in Termux:
+bash
+git clone https://github.com/tdu-tvm/your-repo-name.git
+cd your-repo-name/survey_app
+pip install -r requirements.txt
+python app.py
+Then open Chrome on the phone and go to 127.0.0.1:5000.
