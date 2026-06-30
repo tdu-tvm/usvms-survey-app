@@ -1,4 +1,64 @@
-// GPS capture
+// District -> ULB lists (verified official data only).
+// Add more districts here as you confirm official ULB lists for each.
+// Any district NOT listed here automatically falls back to free-text entry.
+const ULB_DATA = {
+  "Tirunelveli / திருநெல்வேலி": {
+    "Corporation": ["Tirunelveli Municipal Corporation"],
+    "Municipality": ["Ambasamudram", "Vickramasingapuram", "Kalakad"],
+    "Town Panchayat": [
+      "Cheranmahadevi", "Eruvadi", "Gopalasamudram", "Kallidaikurichi",
+      "Manimutharu", "Melacheval", "Moolakaraipatti", "Mukkudal",
+      "Nanguneri", "Naranammalpuram", "Panagudi", "Pathamadai",
+      "Sankarnagar", "Thirukkurungudi", "Thisayanvilai", "Veeravanallur",
+      "Valliyur"
+    ]
+  },
+  "Chengalpattu / செங்கல்பட்டு": {
+    "Corporation": ["Tambaram Municipal Corporation"],
+    "Municipality": ["Chengalpattu", "Madurantakam", "Maraimalai Nagar", "Nandivaram-Guduvancheri"],
+    "Town Panchayat": ["Acharapakkam", "Edakazhinadu", "Karunkuzhi", "Mamallapuram", "Thirukazhukundram", "Thiruporur"]
+  },
+  "Kanchipuram / காஞ்சிபுரம்": {
+    "Corporation": ["Kancheepuram Municipal Corporation"],
+    "Municipality": ["Kundrathur", "Mangadu"],
+    "Town Panchayat": ["Sriperumbudur", "Uthiramerur", "Walajabad"]
+  }
+};
+
+function updateUlbOptions() {
+  const district = document.getElementById('districtSelect').value;
+  const ulbSelect = document.getElementById('ulbSelect');
+  const ulbText = document.getElementById('ulbText');
+  const data = ULB_DATA[district];
+
+  if (data) {
+    // populate dropdown, hide text box
+    ulbSelect.innerHTML = '<option value="">-- Select --</option>';
+    Object.keys(data).forEach(group => {
+      const optgroup = document.createElement('optgroup');
+      optgroup.label = group;
+      data[group].forEach(name => {
+        const opt = document.createElement('option');
+        opt.textContent = name;
+        optgroup.appendChild(opt);
+      });
+      ulbSelect.appendChild(optgroup);
+    });
+    ulbSelect.style.display = 'block';
+    ulbSelect.disabled = false;
+    ulbText.style.display = 'none';
+    ulbText.disabled = true;
+  } else {
+    // no verified data for this district yet -> free text fallback
+    ulbSelect.style.display = 'none';
+    ulbSelect.disabled = true;
+    ulbText.style.display = 'block';
+    ulbText.disabled = false;
+  }
+}
+document.addEventListener('DOMContentLoaded', updateUlbOptions);
+
+
 const getLocBtn = document.getElementById('getLocationBtn');
 if (getLocBtn) {
   getLocBtn.addEventListener('click', () => {

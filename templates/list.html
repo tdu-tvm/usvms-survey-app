@@ -9,11 +9,13 @@
   <button id="syncBtn" class="link-btn">🔄 Sync Now</button>
 </div>
 <table class="records-table">
-<tr><th>ID</th><th>Trader Name</th><th>Mobile</th><th>Created</th><th>Synced</th></tr>
+<tr><th>ID</th><th>Trader Name</th><th>District</th><th>ULB</th><th>Mobile</th><th>Created</th><th>Synced</th></tr>
 {% for r in rows %}
 <tr>
   <td>{{ r['id'] }}</td>
   <td>{{ r['trader_name'] }}</td>
+  <td>{{ r['district'] }}</td>
+  <td>{{ r['ulb_name'] }}</td>
   <td>{{ r['mobile_no'] }}</td>
   <td>{{ r['created_at'] }}</td>
   <td>{{ '✅' if r['synced'] else '⏳ pending' }}</td>

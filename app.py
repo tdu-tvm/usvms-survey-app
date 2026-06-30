@@ -43,7 +43,7 @@ app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50MB per request
 # ---------------------------------------------------------------------------
 
 FIELDS = [
-    "survey_no", "latitude", "longitude", "ward_no", "zone_no",
+    "survey_no", "district", "ulb_name", "latitude", "longitude", "ward_no", "zone_no",
     "trader_name", "father_husband_name", "age", "caste", "house_type",
     "house_ownership", "marital_status", "family_members_json",
     "goods_sold", "business_type", "business_hours", "mobile_no",

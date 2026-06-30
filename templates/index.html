@@ -17,6 +17,53 @@
 
   <fieldset>
     <legend>Location / இடம்</legend>
+    <label>District / மாவட்டம்:
+      <select name="district" id="districtSelect" onchange="updateUlbOptions()">
+        <option value="">-- Select --</option>
+        <option>Ariyalur / அரியலூர்</option>
+        <option>Chengalpattu / செங்கல்பட்டு</option>
+        <option>Chennai / சென்னை</option>
+        <option>Coimbatore / கோயம்புத்தூர்</option>
+        <option>Cuddalore / கடலூர்</option>
+        <option>Dharmapuri / தர்மபுரி</option>
+        <option>Dindigul / திண்டுக்கல்</option>
+        <option>Erode / ஈரோடு</option>
+        <option>Kallakurichi / கள்ளக்குறிச்சி</option>
+        <option>Kanchipuram / காஞ்சிபுரம்</option>
+        <option>Kanyakumari / கன்னியாகுமரி</option>
+        <option>Karur / கரூர்</option>
+        <option>Krishnagiri / கிருஷ்ணகிரி</option>
+        <option>Madurai / மதுரை</option>
+        <option>Mayiladuthurai / மயிலாடுதுறை</option>
+        <option>Nagapattinam / நாகப்பட்டினம்</option>
+        <option>Namakkal / நாமக்கல்</option>
+        <option>Nilgiris / நீலகிரி</option>
+        <option>Perambalur / பெரம்பலூர்</option>
+        <option>Pudukkottai / புதுக்கோட்டை</option>
+        <option>Ramanathapuram / இராமநாதபுரம்</option>
+        <option>Ranipet / ராணிப்பேட்டை</option>
+        <option>Salem / சேலம்</option>
+        <option>Sivaganga / சிவகங்கை</option>
+        <option>Tenkasi / தென்காசி</option>
+        <option>Thanjavur / தஞ்சாவூர்</option>
+        <option>Theni / தேனி</option>
+        <option>Thoothukudi / தூத்துக்குடி</option>
+        <option selected>Tiruvannamalai / திருவண்ணாமலை</option>
+        <option>Tiruchirappalli / திருச்சிராப்பள்ளி</option>
+        <option>Tirunelveli / திருநெல்வேலி</option>
+        <option>Tirupathur / திருப்பத்தூர்</option>
+        <option>Tiruppur / திருப்பூர்</option>
+        <option>Tiruvallur / திருவள்ளூர்</option>
+        <option>Tiruvarur / திருவாரூர்</option>
+        <option>Vellore / வேலூர்</option>
+        <option>Viluppuram / விழுப்புரம்</option>
+        <option>Virudhunagar / விருதுநகர்</option>
+      </select>
+    </label>
+    <label>ULB Name / நகராட்சி/மாநகராட்சி பெயர்:
+      <select name="ulb_name" id="ulbSelect" style="display:none;"></select>
+      <input type="text" name="ulb_name" id="ulbText" placeholder="Type ULB name">
+    </label>
     <label>Survey No. / கணக்கெடுப்பு எண்: <input type="text" name="survey_no"></label>
     <label>Ward No. / வார்டு எண்: <input type="text" name="ward_no"></label>
     <label>Zone No. / மண்டலம் எண்: <input type="text" name="zone_no"></label>
