@@ -58,6 +58,15 @@ function updateUlbOptions() {
 }
 document.addEventListener('DOMContentLoaded', updateUlbOptions);
 
+// Remember surveyor name on this device (saves re-typing every record)
+const surveyorInput = document.getElementById('surveyorName');
+if (surveyorInput) {
+  const saved = localStorage.getItem('surveyor_name');
+  if (saved) surveyorInput.value = saved;
+  surveyorInput.addEventListener('change', () => {
+    localStorage.setItem('surveyor_name', surveyorInput.value);
+  });
+}
 
 const getLocBtn = document.getElementById('getLocationBtn');
 if (getLocBtn) {

@@ -1,0 +1,50 @@
+1. Install Termux
+Don't use the Play Store version — it's outdated and broken. Instead:
+
+Install F-Droid first: open a browser, go to f-droid.org, download and install the F-Droid app (you'll need to allow "install from unknown sources" when prompted)
+Open F-Droid, search for Termux, install it
+
+2. Open Termux and set up storage access
+bash
+termux-setup-storage
+Tap "Allow" when Android asks for storage permission.
+
+3. Update packages and install Python + Git
+bash
+pkg update
+(press Enter through any prompts, usually just confirms with Enter or y)
+bash
+pkg upgrade
+bash
+pkg install python git
+
+4. Clone the survey app repo
+bash
+git clone https://github.com/tdu-tvm/usvms-survey-app.git
+cd usvms-survey-app
+
+5. Install Python dependencies
+bash
+pip install -r requirements.txt
+
+6. Set up permanent environment variables (so you don't retype them every session)
+bash
+echo 'export SURVEY_VPS_URL="https://nulm-susv.in/api/survey/upload"' >> ~/.bashrc
+echo 'export SURVEY_API_KEY="your-actual-api-key-here"' >> ~/.bashrc
+source ~/.bashrc
+
+Replace your-actual-api-key-here with your real key (same one used on the VPS and your other devices).
+Verify it's set:
+
+bash
+echo $SURVEY_API_KEY
+Should print your actual key, not blank.
+
+7. Run the app
+bash
+python app.py
+Leave Termux open/running in the background.
+
+8. Open Chrome on the same phone, go to:
+http://127.0.0.1:5000
+Grant camera and GPS permissions when Chrome asks.

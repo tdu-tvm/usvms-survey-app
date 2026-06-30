@@ -22,7 +22,8 @@ def upload_vendor_record(vendor_id, trader_name, record_data, files):
     """
     POSTs vendor_id, trader_name, record_data (as JSON), and every file in
     `files` (dict of field_name -> local path) to the VPS receiver.
-    Returns a string identifier (used to mark the record as synced).
+    Returns the official vendor_code assigned by the VPS (e.g. "TVM0001"),
+    or the raw upload URL as a fallback if the server didn't return one.
     """
     data = {
         "vendor_id": vendor_id,
@@ -50,7 +51,7 @@ def upload_vendor_record(vendor_id, trader_name, record_data, files):
         result = resp.json()
         if result.get("status") != "ok":
             raise RuntimeError(f"VPS rejected upload: {result}")
-        return VPS_UPLOAD_URL
+        return result.get("vendor_code") or VPS_UPLOAD_URL
     finally:
         for fh in open_files:
             fh.close()

@@ -43,7 +43,7 @@ app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024  # 50MB per request
 # ---------------------------------------------------------------------------
 
 FIELDS = [
-    "survey_no", "district", "ulb_name", "latitude", "longitude", "ward_no", "zone_no",
+    "surveyor_name", "survey_no", "district", "ulb_name", "latitude", "longitude", "ward_no", "zone_no",
     "trader_name", "father_husband_name", "age", "caste", "house_type",
     "house_ownership", "marital_status", "family_members_json",
     "goods_sold", "business_type", "business_hours", "mobile_no",
@@ -75,10 +75,15 @@ def init_db():
             created_at TEXT,
             synced INTEGER DEFAULT 0,
             drive_folder_id TEXT,
+            vendor_code TEXT,
             {cols},
             {file_cols}
         )
     """)
+    # safe migration for databases created before vendor_code existed
+    existing_cols = [row["name"] for row in conn.execute("PRAGMA table_info(vendors)").fetchall()]
+    if "vendor_code" not in existing_cols:
+        conn.execute("ALTER TABLE vendors ADD COLUMN vendor_code TEXT")
     conn.commit()
     conn.close()
 
@@ -206,15 +211,15 @@ def run_sync_pass():
                 if record.get(f) and os.path.exists(record[f]):
                     files_to_upload[f] = record[f]
 
-            folder_id = drive_sync.upload_vendor_record(
+            vendor_code = drive_sync.upload_vendor_record(
                 vendor_id=record["id"],
                 trader_name=record.get("trader_name") or "Unknown",
                 record_data={k: record.get(k) for k in FIELDS},
                 files=files_to_upload,
             )
             conn.execute(
-                "UPDATE vendors SET synced=1, drive_folder_id=? WHERE id=?",
-                (folder_id, record["id"]),
+                "UPDATE vendors SET synced=1, drive_folder_id=?, vendor_code=? WHERE id=?",
+                (vendor_code, vendor_code, record["id"]),
             )
             conn.commit()
             synced_count += 1

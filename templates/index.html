@@ -16,6 +16,13 @@
 <form id="surveyForm" method="POST" action="/submit" enctype="multipart/form-data">
 
   <fieldset>
+    <legend>Surveyor / கணக்கெடுப்பாளர்</legend>
+    <label>Surveyor Name / கணக்கெடுப்பாளர் பெயர்:
+      <input type="text" name="surveyor_name" id="surveyorName" required>
+    </label>
+  </fieldset>
+
+  <fieldset>
     <legend>Location / இடம்</legend>
     <label>District / மாவட்டம்:
       <select name="district" id="districtSelect" onchange="updateUlbOptions()">
