@@ -90,6 +90,13 @@
         <option>SC</option><option>ST</option><option>MBC</option><option>BC</option><option>Others</option>
       </select>
     </label>
+    <label>Gender / பாலினம்:
+      <select name="gender">
+        <option value="Female">Female / பெண்</option>
+        <option value="Male">Male / ஆண்</option>
+        <option value="Other">Other / மற்றவர்</option>
+      </select>
+    </label>
     <label>Mobile No / கைபேசி எண்: <input type="tel" name="mobile_no"></label>
     <label>Marital Status / திருமண நிலை:
       <select name="marital_status">
@@ -131,7 +138,20 @@
     <legend>Business Details / வியாபார விவரம்</legend>
     <label>Goods Sold / விற்பனை செய்யும் பொருள்: <input type="text" name="goods_sold"></label>
     <label>Business Type / வியாபார தன்மை:
-      <select name="business_type"><option value="Permanent Shop">Permanent Shop / நிலையான கடை</option><option value="Pushcart">Pushcart / தள்ளுவண்டி</option></select>
+      <select name="business_type">
+        <option value="Permanent Shop">Permanent Shop / நிலையான கடை</option>
+        <option value="Pushcart">Pushcart / தள்ளுவண்டி</option>
+        <option value="Mobile">Mobile / நடமாடும்</option>
+        <option value="Seasonal">Seasonal / பருவகால</option>
+      </select>
+    </label>
+    <label>Nature of Business / வியாபாரத்தின் இயல்பு:
+      <select name="nature_of_business">
+        <option value="Continuous">Continuous / தொடர்ச்சியான</option>
+        <option value="Seasonal">Seasonal / பருவகால</option>
+        <option value="Weekly">Weekly / வாராந்திர</option>
+        <option value="Monthly">Monthly / மாதாந்திர</option>
+      </select>
     </label>
     <label>Business Hours / நேரம்:
       <select name="business_hours"><option>Morning</option><option>Evening</option><option>Night</option><option>24 Hours</option></select>
